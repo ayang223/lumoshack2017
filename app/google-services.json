@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "997183732086",
+    "firebase_url": "https://lumoshack2017.firebaseio.com",
+    "project_id": "lumoshack2017",
+    "storage_bucket": "lumoshack2017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997183732086:android:79ac468d06bec6fd",
+        "android_client_info": {
+          "package_name": "com.example.clai.lumos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997183732086-8i68u2igk6t3c099d16de7d2og01t2jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBycoDVUlulFxwfj8b4OSzknInm-XFGfgA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

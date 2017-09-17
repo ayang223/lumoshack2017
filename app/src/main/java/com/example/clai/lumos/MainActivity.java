@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity
     AlarmManager alarmManager;
     long time;
 
-
+    public int getAlarm(){
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.HOUR_OF_DAY);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
 
-//        startActivity(new Intent(MainActivity.this, Timer.class));
     }
     public void OnToggleClicked(final View view)
     {
@@ -58,17 +60,13 @@ public class MainActivity extends AppCompatActivity
 
         if (((ToggleButton) view).isChecked())
         {
-//            ringtone.play();
             Timer.isRinging = true;
             Toast.makeText(MainActivity.this, "ALARM ON", Toast.LENGTH_SHORT).show();
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
             Intent intent = new Intent(this, Timer.class);
             pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-
-            time = (calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+            int currentHour = getAlarm();
+            time = (currentHour + 1) * 3600000;
             if(System.currentTimeMillis()>time)
             {
                 if (calendar.AM_PM == 0)

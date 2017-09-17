@@ -12,9 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,19 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-
 import java.util.Random;
-
-import static com.example.clai.lumos.R.id.textClock;
-
-import java.util.Iterator;
-
-import static com.example.clai.lumos.R.id.textClock;
-import static com.example.clai.lumos.R.id.textView;
 
 
 public class TimerDoneRight extends AppCompatActivity {
@@ -146,11 +136,11 @@ public class TimerDoneRight extends AppCompatActivity {
 
                     String status = (String) snapshot.child("status").getValue();
 
-                    if (status == "true") {
+                    if (status.equals("true")) {
                         num_depressed++;
                     }
                 }
-                mTextView.setText("Number of Depressed People: " + num_depressed + " :)");
+                mTextView.setText("Nearby Users Online: " + num_depressed + " :)");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

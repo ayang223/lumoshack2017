@@ -13,6 +13,7 @@ import android.view.*;
 public class Timer extends BroadcastReceiver
 {
     static boolean isRinging;
+    static boolean running;
     Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     static Ringtone ringtone;
 
@@ -22,7 +23,7 @@ public class Timer extends BroadcastReceiver
     {
 
 
-
+        running = true;
         if (isRinging) {
             Toast.makeText(context, "Alarm! Wake up! Wake up!", Toast.LENGTH_LONG).show();
 //        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
@@ -32,6 +33,10 @@ public class Timer extends BroadcastReceiver
             ringtone = RingtoneManager.getRingtone(context, alarmUri);
             ringtone.play();
         }
+    }
+
+    public static void play() {
+        ringtone.play();
     }
 
     public static void stop() {

@@ -13,21 +13,21 @@ package com.example.clai.lumos;
 //}
 
 import android.app.AlarmManager;
-        import android.app.PendingIntent;
-        import android.content.Intent;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
-        import android.widget.Toast;
-        import android.widget.ToggleButton;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
-        import java.util.Calendar;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
 
     public int getAlarm(){
         Calendar c = Calendar.getInstance();
-        return c.get(Calendar.HOUR_OF_DAY);
+        return c.get(Calendar.MINUTE);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, Timer.class);
             pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
             int currentHour = getAlarm();
-            time = (currentHour + 1) * 3600000;
+            time = (currentHour + 1) * 60000;
             if(System.currentTimeMillis()>time)
             {
                 if (calendar.AM_PM == 0)
@@ -86,11 +86,12 @@ public class MainActivity extends AppCompatActivity
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                     alarmManager.cancel(pendingIntent);
                 }
-        });
+            });
 
         }
         else
         {
+            Timer.stop();
             alarmManager.cancel(pendingIntent);
             Toast.makeText(MainActivity.this, "ALARM OFF", Toast.LENGTH_SHORT).show();
         }

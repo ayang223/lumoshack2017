@@ -11,30 +11,60 @@ import android.os.Bundle;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.Iterator;
 
 import static com.example.clai.lumos.R.id.textClock;
+import static com.example.clai.lumos.R.id.textView;
 
 public class TimerDoneRight extends AppCompatActivity {
 
     Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    TextView mTextView;
     Ringtone ringtone;
+
+    private FirebaseUser user; //= FirebaseAuth.getInstance().getCurrentUser();
+    String email;// = user.getEmail();
+    String uid;// = user.getUid();
+    JSONObject userdata;// = new JSONObject();
+    JSONArray array;// = new JSONArray();
+    JSONObject item;// = new JSONObject();
+    DatabaseReference myData = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mChildRef = myData.child("users");
 
     long time;
     boolean rest;
+    int num_depressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_done_right);
 
-        Button stopButton = (Button) findViewById(R.id.button);
-        ringtone = RingtoneManager.getRingtone(this, alarmUri);
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
+        myData.child("users").child(user.getUid()).child("user_email").setValue(user.getEmail());
+        myData.child("users").child(user.getUid()).child("status").setValue("true");
+
+        Button stopButton = (Button) findViewById(R.id.button);
+        mTextView = (TextView)findViewById(R.id.textView);
+        ringtone = RingtoneManager.getRingtone(this, alarmUri);
 
         stopButton.setOnClickListener(new View.OnClickListener() {//button to stop
             public void onClick(View v) {
@@ -54,7 +84,6 @@ public class TimerDoneRight extends AppCompatActivity {
                 }
             }
         });
-
     }
     public void OnToggleClicked(View view) {
 
@@ -96,11 +125,57 @@ public class TimerDoneRight extends AppCompatActivity {
         return c.get(Calendar.MINUTE);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mChildRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    //User user = snapshot.getValue(User.class);
+                    //System.out.println(user.mEmail);
+
+                    String status = (String) snapshot.child("status").getValue();
+
+                    if (status == "true") {
+                        num_depressed++;
+                    }
+                }
+                mTextView.setText("Number of Depressed People: " + num_depressed + " :)");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void onStop() {
+        super.onStop();
+
+        myData.child("users").child(user.getUid()).child("status").setValue("false");
+    }
+
     public void play() {
         ringtone.play();
     }
 
     public void stop() {
         ringtone.stop();
+    }
+
+    public static class User {
+
+        public String mEmail;
+        public String mStatus;
+
+        public User(){
+            // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        }
+
+        public User(String email, String status) {
+            this.mEmail = email;
+            this.mStatus = status;
+        }
     }
 }

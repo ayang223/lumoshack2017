@@ -45,5 +45,12 @@
         android:onClick="onBackClick"
         android:text="Enjoy your break -bow-" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:text="Number of Depressed People: " />
+
 
 </LinearLayout>

@@ -6,10 +6,10 @@
     android:weightSum="1">
 
     <!--<TimePicker-->
-        <!--android:id="@+id/timePicker"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center" />-->
+    <!--android:id="@+id/timePicker"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center" />-->
 
     <TextClock
         android:id="@+id/textClock"
@@ -37,6 +37,13 @@
         android:onClick="onBackClick"
         android:text="Click to stop alarm" />
 
+    <Button
+        android:id="@+id/restButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onBackClick"
+        android:text="Enjoy your break -bow-" />
 
 
 </LinearLayout>

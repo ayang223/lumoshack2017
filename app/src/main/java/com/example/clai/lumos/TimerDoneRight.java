@@ -41,8 +41,8 @@ public class TimerDoneRight extends AppCompatActivity {
                 stop();
                 if (rest) {
                     double time = System.currentTimeMillis();
-                    time = (time / 60000) + 0.25;
-                    time *= 60000;
+                    time = (time / 3600000) + 0.25;
+                    time *= 3600000;
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -64,8 +64,8 @@ public class TimerDoneRight extends AppCompatActivity {
             int currentHour = getAlarm();
             if (ringtone != null) {
                 long time = System.currentTimeMillis();
-                time = (time / 60000) + 1;
-                time *= 60000;
+                time = (time / 3600000) + 1;
+                time *= 3600000;
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override

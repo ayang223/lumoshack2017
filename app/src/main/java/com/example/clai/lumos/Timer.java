@@ -12,19 +12,30 @@ import android.view.*;
 
 public class Timer extends BroadcastReceiver
 {
-//    Button button = (Button) findViewById(R.id.button);
+    static boolean isRinging;
+    Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    static Ringtone ringtone;
+
+
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        Toast.makeText(context, "Alarm! Wake up! Wake up!", Toast.LENGTH_LONG).show();
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alarmUri == null)
-        {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();
 
+
+
+        if (isRinging) {
+            Toast.makeText(context, "Alarm! Wake up! Wake up!", Toast.LENGTH_LONG).show();
+//        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (alarmUri == null) {
+                alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            }
+            ringtone = RingtoneManager.getRingtone(context, alarmUri);
+            ringtone.play();
+        }
+    }
+
+    public static void stop() {
         ringtone.stop();
+        isRinging = false;
     }
 }

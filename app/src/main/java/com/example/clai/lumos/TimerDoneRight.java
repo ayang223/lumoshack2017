@@ -1,22 +1,17 @@
 package com.example.clai.lumos;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.Calendar;
-
-import static com.example.clai.lumos.R.id.textClock;
 
 public class TimerDoneRight extends AppCompatActivity {
 
@@ -103,4 +98,5 @@ public class TimerDoneRight extends AppCompatActivity {
     public void stop() {
         ringtone.stop();
     }
+
 }

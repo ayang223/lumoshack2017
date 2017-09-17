@@ -11,9 +11,14 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Random;
 
 public class TimerDoneRight extends AppCompatActivity {
+    ArrayList<String> quotes = new ArrayList<String>(Arrays.asList("Focus on the Good","Grow through what you go through","Believe"));
+    Random r = new Random();
 
     Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     Ringtone ringtone;
@@ -36,8 +41,8 @@ public class TimerDoneRight extends AppCompatActivity {
                 stop();
                 if (rest) {
                     double time = System.currentTimeMillis();
-                    time = (time / 3600000) + 0.25;
-                    time *= 3600000;
+                    time = (time / 60000) + 0.25;
+                    time *= 60000;
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -54,13 +59,13 @@ public class TimerDoneRight extends AppCompatActivity {
     public void OnToggleClicked(View view) {
 
         if (((ToggleButton) view).isChecked()) {
-            Toast.makeText(TimerDoneRight.this, "ALARM ON", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TimerDoneRight.this,"ALARM ON", Toast.LENGTH_SHORT).show();
             Calendar calendar = Calendar.getInstance();
             int currentHour = getAlarm();
             if (ringtone != null) {
                 long time = System.currentTimeMillis();
-                time = (time / 3600000) + 1;
-                time *= 3600000;
+                time = (time / 60000) + 1;
+                time *= 60000;
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -96,6 +101,9 @@ public class TimerDoneRight extends AppCompatActivity {
     }
 
     public void stop() {
+        if (ringtone.isPlaying()){
+            Toast.makeText(TimerDoneRight.this,quotes.get(r.nextInt(quotes.size())), Toast.LENGTH_LONG).show();
+        }
         ringtone.stop();
     }
 

@@ -17,12 +17,16 @@ import android.app.AlarmManager;
         import android.content.Intent;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
-        import android.view.View;
-        import android.widget.TimePicker;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TimePicker;
         import android.widget.Toast;
         import android.widget.ToggleButton;
 
         import java.util.Calendar;
+
+import static android.R.id.button2;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -38,11 +42,24 @@ public class MainActivity extends AppCompatActivity
         alarmTimePicker = (TimePicker) findViewById(R.id.timePicker);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
+
+
     public void OnToggleClicked(View view)
     {
+        //  Button map = (Button) findViewById(R.id.button2);
+        Button map = (Button) findViewById(button2);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onClick", "clicked");
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
+            }
+        });
+
         long time;
         if (((ToggleButton) view).isChecked())
         {
+
             Toast.makeText(MainActivity.this, "ALARM ON", Toast.LENGTH_SHORT).show();
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
@@ -67,4 +84,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "ALARM OFF", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

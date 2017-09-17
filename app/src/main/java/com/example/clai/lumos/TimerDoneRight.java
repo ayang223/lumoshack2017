@@ -35,6 +35,7 @@ public class TimerDoneRight extends AppCompatActivity {
 
     Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     TextView mTextView;
+    TextView mMeetView;
     Ringtone ringtone;
 
     private FirebaseUser user; //= FirebaseAuth.getInstance().getCurrentUser();
@@ -50,18 +51,27 @@ public class TimerDoneRight extends AppCompatActivity {
     boolean rest;
     int num_depressed;
 
+    String closest_person;
+    int closest_distance;
+
+    int random = (int )(Math.random() * 50 + 1);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_done_right);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        closest_person = user.getEmail();
+        closest_distance = 1000;
 
         myData.child("users").child(user.getUid()).child("user_email").setValue(user.getEmail());
         myData.child("users").child(user.getUid()).child("status").setValue("true");
+        myData.child("users").child(user.getUid()).child("lat").setValue(random);
 
         Button stopButton = (Button) findViewById(R.id.button);
         mTextView = (TextView)findViewById(R.id.textView);
+        mMeetView = (TextView)findViewById(R.id.meetView);
         ringtone = RingtoneManager.getRingtone(this, alarmUri);
 
         stopButton.setOnClickListener(new View.OnClickListener() {//button to stop
@@ -135,12 +145,25 @@ public class TimerDoneRight extends AppCompatActivity {
                     //System.out.println(user.mEmail);
 
                     String status = (String) snapshot.child("status").getValue();
+                    String email = (String) snapshot.child("user_email").getValue();
+                    String lat = (String)snapshot.child("lat").getValue().toString();
+
+                    int distance = random + Integer.parseInt(lat);
 
                     if (status.equals("true")) {
                         num_depressed++;
                     }
+
+                    if (!email.equals(user.getEmail())){
+                        if(distance < closest_distance) {
+                            closest_distance = distance;
+                            closest_person = email;
+                        }
+                    }
                 }
+
                 mTextView.setText("Nearby Users Online: " + num_depressed + " :)");
+                mMeetView.setText("Meet With: " + closest_person);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

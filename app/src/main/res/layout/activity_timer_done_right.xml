@@ -52,5 +52,15 @@
         android:paddingTop="10dp"
         android:text="Nearby Users Online: " />
 
+    <TextView
+        android:id="@+id/meetView"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.1"
+        android:layout_marginTop="50dp"
+        android:paddingTop="10dp"
+        android:text="Meet With: " />
+
 
 </LinearLayout>

@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -396,7 +396,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, TimerDoneRight.class));
                                     //updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -421,7 +421,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, TimerDoneRight.class));
                                     //updateUI(user);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -445,7 +445,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                //startActivity(new Intent(LoginActivity.this, TimerDoneRight.class));
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
